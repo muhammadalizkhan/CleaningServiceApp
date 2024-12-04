@@ -24,8 +24,8 @@ export default function ServicesSlider() {
 
 const styles = StyleSheet.create({
     container: {
-        paddingVertical: 10,
         marginTop: 20,
+        backgroundColor: '#f3f3f3',
     },
     scrollContainer: {
         paddingHorizontal: 10,

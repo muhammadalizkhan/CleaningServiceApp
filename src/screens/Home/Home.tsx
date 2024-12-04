@@ -15,6 +15,6 @@ export default function Home() {
 
 const style = StyleSheet.create({
   Home: {
-    backgroundColor: '#f4f4f4',
+    backgroundColor: '#f3f3f3',
   }
 })
