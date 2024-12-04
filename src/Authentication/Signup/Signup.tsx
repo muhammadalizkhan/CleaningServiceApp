@@ -12,11 +12,17 @@ const Signup = ({ navigation }: any) => {
   const handleSignup = async () => {
     try {
       await signupWithAuth0(username, email, password);
-      navigation.navigate('Login'); // Navigate to Login after successful signup
+      navigation.navigate('Login');
     } catch (error) {
-      console.error('Signup failed:', error);
+      if (error instanceof Error) {
+        // Display a more informative error message
+        console.error('Signup failed:', error.message);
+      } else {
+        console.error('Signup failed:', error);
+      }
     }
   };
+  
 
   return (
     <View style={styles.container}>
