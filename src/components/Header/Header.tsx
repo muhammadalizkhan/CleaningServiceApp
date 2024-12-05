@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet, Image, Platform } from 'react-native';
 import HeaderSlider from '../Slider/HeaderSlider';
+import ServicesSlider from '../Slider/ServicesSlider';
 
 export default function Header() {
   return (
@@ -22,6 +23,7 @@ export default function Header() {
         style={styles.input}
       />
       <HeaderSlider />
+      <ServicesSlider />
     </View>
   );
 }

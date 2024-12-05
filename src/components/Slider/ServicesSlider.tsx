@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, Image, StyleSheet } from 'react-native';
-import { servicesData } from './ServicesData';
+import { servicesData } from '../../Data/ServiceSiderData/ServicesData';
+
 export default function ServicesSlider() {
     return (
         <View style={styles.container}>
@@ -24,16 +25,16 @@ export default function ServicesSlider() {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
-        backgroundColor: '#f3f3f3',
+        marginVertical: 20, // Margin around the container for spacing
     },
     scrollContainer: {
-        paddingHorizontal: 10,
-        alignItems: 'center',
+        flexDirection: 'row',
+        alignItems: 'center', // Center items vertically
+        justifyContent: 'flex-start',
     },
     serviceItem: {
         alignItems: 'center',
-        marginHorizontal: 10,
+        marginHorizontal: 15, // Add space between items
     },
     iconContainer: {
         backgroundColor: '#143740',
