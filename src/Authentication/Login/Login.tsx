@@ -1,21 +1,34 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import {
-  loginWithAuth0
-} from '../../Services/Auth_API/AuthService'
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { loginWithAuth0 } from '../../Services/AuthService/AuthService';
 
 const Login = ({ navigation }: any) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Both email and password are required!');
+      return;
+    }
+
+    setLoading(true);
+
     try {
-      const credentials = await loginWithAuth0(username, password);
+      const credentials = await loginWithAuth0(email, password);
       if (credentials) {
-        navigation.navigate('Home');
+        Alert.alert('Success', 'Login successful!');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Home' }],
+        });
       }
     } catch (error) {
       console.error('Login failed:', error);
+      Alert.alert('Login failed', error.message || 'Unable to log in. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -24,9 +37,11 @@ const Login = ({ navigation }: any) => {
       <Text style={styles.title}>Login</Text>
       <TextInput
         style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
       <TextInput
         style={styles.input}
@@ -35,7 +50,11 @@ const Login = ({ navigation }: any) => {
         secureTextEntry
         onChangeText={setPassword}
       />
-      <Button title="Login" onPress={handleLogin} />
+      <Button
+        title={loading ? 'Logging in...' : 'Login'}
+        onPress={handleLogin}
+        disabled={loading}
+      />
       <Button title="Go to Signup" onPress={() => navigation.navigate('Signup')} />
       <Button title="Forgot Password?" onPress={() => navigation.navigate('ForgotPassword')} />
     </View>

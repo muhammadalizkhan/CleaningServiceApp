@@ -4,7 +4,7 @@ import Login from '../../Authentication/Login/Login';
 import Signup from '../../Authentication/Signup/Signup';
 import Verification from '../../Authentication/Verification/Verification';
 import ForgotPassword from '../../Authentication/ForgotPassword/ForgotPassword';
-import { AuthStackParamList } from '../../Types/Navigation/navigation'; // <-- Import the type
+import { AuthStackParamList } from '../../Types/Navigation/navigation';
 
 const Stack = createStackNavigator<AuthStackParamList>();
 
