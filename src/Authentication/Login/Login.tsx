@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import {
   loginWithAuth0
-} from '../../Services/AuthService'
+} from '../../Services/Auth_API/AuthService'
 
 const Login = ({ navigation }: any) => {
   const [username, setUsername] = useState('');

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api/token';
+const API_URL = 'http://localhost:8081/api/token';
 
 export const getAccessToken = async () => {
   try {

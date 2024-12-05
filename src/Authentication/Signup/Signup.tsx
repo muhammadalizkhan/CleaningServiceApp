@@ -1,28 +1,37 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import {
-    signupWithAuth0
-} from '../../Services/AuthService'
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { signupWithAuth0 } from '../../Services/AuthService/AuthService';
 
 const Signup = ({ navigation }: any) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSignup = async () => {
+    if (!username || !email || !password) {
+      Alert.alert('Error', 'All fields are required!');
+      return;
+    }
+
+    setLoading(true);
+
     try {
       await signupWithAuth0(username, email, password);
-      navigation.navigate('Login');
+      Alert.alert('Success', 'Signup successful!', [
+        { text: 'OK', onPress: () => navigation.navigate('Login') },
+      ]);
     } catch (error) {
+      setLoading(false);
       if (error instanceof Error) {
-        // Display a more informative error message
         console.error('Signup failed:', error.message);
+        Alert.alert('Signup failed', error.message);
       } else {
         console.error('Signup failed:', error);
+        Alert.alert('Signup failed', 'An unknown error occurred.');
       }
     }
   };
-  
 
   return (
     <View style={styles.container}>
@@ -38,6 +47,7 @@ const Signup = ({ navigation }: any) => {
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
+        keyboardType="email-address"
       />
       <TextInput
         style={styles.input}
@@ -46,7 +56,11 @@ const Signup = ({ navigation }: any) => {
         secureTextEntry
         onChangeText={setPassword}
       />
-      <Button title="Sign Up" onPress={handleSignup} />
+      <Button
+        title={loading ? 'Signing up...' : 'Sign Up'}
+        onPress={handleSignup}
+        disabled={loading}
+      />
       <Button title="Go to Login" onPress={() => navigation.navigate('Login')} />
     </View>
   );

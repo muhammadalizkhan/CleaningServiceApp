@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import { verifyCode } from '../../Services/AuthService'; 
+import { verifyCode } from '../../Services/Auth_API/AuthService'; 
 
 const Verification = ({ route, navigation }: any) => {
   const [code, setCode] = useState('');
